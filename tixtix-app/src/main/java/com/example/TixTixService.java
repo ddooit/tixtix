@@ -9,7 +9,6 @@ import com.example.payment.PaymentReadyRequest;
 import com.example.ticket.TicketingStatus;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -65,7 +64,7 @@ class TixTixService {
             }
 
             @Override
-            public void onFailure(@NotNull final Throwable t) {
+            public void onFailure(final Throwable t) {
                 logger.info("결제 대기 처리 실패 : {}", t.getMessage());
 
             }
@@ -87,7 +86,7 @@ class TixTixService {
             }
 
             @Override
-            public void onFailure(@NotNull final Throwable t) {
+            public void onFailure(final Throwable t) {
                 logger.info("알림 전송 실패 : {}", t.getMessage());
 
             }

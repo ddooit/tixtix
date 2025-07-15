@@ -1,5 +1,5 @@
 plugins {
-	id 'org.jetbrains.kotlin.jvm' version '1.9.25'
+	id 'java'
 	id 'com.google.protobuf' version '0.9.4'
 }
 
@@ -20,13 +20,7 @@ dependencies {
 	implementation 'com.google.protobuf:protobuf-java:3.25.3'
 	implementation 'io.grpc:grpc-protobuf:1.63.0'
 	implementation 'io.grpc:grpc-stub:1.63.0'
-	implementation 'io.grpc:grpc-kotlin-stub:1.4.0'
-}
-
-kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll '-Xjsr305=strict'
-	}
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
 }
 
 protobuf {
@@ -37,15 +31,11 @@ protobuf {
 		grpc {
 			artifact = 'io.grpc:protoc-gen-grpc-java:1.63.0'
 		}
-		grpckt {
-			artifact = 'io.grpc:protoc-gen-grpc-kotlin:1.4.0:jdk8@jar'
-		}
 	}
 	generateProtoTasks {
 		all().each { task ->
 			task.plugins {
 				grpc {}
-				grpckt {}
 			}
 		}
 	}
