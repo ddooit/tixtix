@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -94,7 +95,18 @@ class TixTixService {
     }
 
     public List<Long> monitoring(final long performanceId){
-        return ticketClientCaller().callMonitoring(performanceId);
+        final var result = new ArrayList<Long>();
+
+        ticketClientCaller()
+                .callMonitoring(performanceId)
+                .forEachRemaining(monitoringResponse -> {
+
+                    alarmProcessing(1_000); // todo. fix it for monitoring
+
+                    result.add(monitoringResponse.getRemainingTicketCount());
+                });
+
+        return result;
     }
 
 }
