@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.ticket";
+option java_outer_classname = "TicketingProto";
+
+message TicketingRequest {
+  int64 ticketId = 1;
+  int64 memberId = 2;
+}
+
+message TicketingResponse {
+  TicketingStatus status = 1;
+  string  message = 2;
+  int64 memberId = 3;
+  int32 ticketPrice = 4;
+}
+
+enum TicketingStatus {
+  CANCELED = 0;
+  FAILED = 1;
+  PAYMENT_PROCESSING = 2;
+  PAYMENT_DONE = 3;
+}
+
+service Ticketing {
+  rpc Ticketing(TicketingRequest) returns (TicketingResponse);
+}

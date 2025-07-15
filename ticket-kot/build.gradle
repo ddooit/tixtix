@@ -1,0 +1,55 @@
+plugins {
+	id 'org.jetbrains.kotlin.jvm' version '1.9.25'
+	id 'org.jetbrains.kotlin.plugin.spring' version '1.9.25'
+	id 'org.springframework.boot' version '3.5.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springGrpcVersion', "0.9.0")
+}
+
+dependencies {
+	implementation 'io.grpc:grpc-services'
+	implementation 'org.jetbrains.kotlin:kotlin-reflect'
+	implementation 'org.springframework.grpc:spring-grpc-spring-boot-starter'
+	implementation(project(":proto"))
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
+	testImplementation 'org.springframework.grpc:spring-grpc-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.grpc:spring-grpc-dependencies:${springGrpcVersion}"
+	}
+}
+
+kotlin {
+	compilerOptions {
+		freeCompilerArgs.addAll '-Xjsr305=strict'
+	}
+}
+
+tasks.named('compileKotlin') {
+	dependsOn(':proto:build')
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

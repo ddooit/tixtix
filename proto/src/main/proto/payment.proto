@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.payment";
+option java_outer_classname = "PaymentProto";
+
+
+message PaymentReadyRequest {
+  int64 memberId = 1;
+  int32 price = 2;
+}
+
+message Empty {}
+
+service PaymentService {
+  rpc getReady(PaymentReadyRequest) returns (Empty);
+}
