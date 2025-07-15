@@ -2,10 +2,9 @@ package com.example;
 
 import com.example.dto.TicketingRequest;
 import com.example.dto.TicketingResponse;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 class TixTixController {
@@ -23,6 +22,11 @@ class TixTixController {
     @PostMapping("/ticketing")
     TicketingResponse ticketing(@RequestBody final TicketingRequest request) {
         return service.ticketing(request);
+    }
+
+    @GetMapping("/{performanceId}")
+    List<Long> getPerformance(@PathVariable final long performanceId) {
+        return service.monitoring(performanceId);
     }
 
 

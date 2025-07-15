@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,7 +48,6 @@ class TixTixService {
 
         return new TicketingResponse(TicketingStatus.PAYMENT_PROCESSING, "");
     }
-
 
     private void paymentProcessing(final com.example.ticket.TicketingResponse response) {
         final var paymentGetReadyFuture = paymentClientCaller()
@@ -91,6 +91,10 @@ class TixTixService {
 
             }
         }, callbackExecutor);
+    }
+
+    public List<Long> monitoring(final long performanceId){
+        return ticketClientCaller().callMonitoring(performanceId);
     }
 
 }

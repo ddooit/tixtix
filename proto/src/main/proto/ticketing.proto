@@ -23,6 +23,15 @@ enum TicketingStatus {
   PAYMENT_DONE = 3;
 }
 
+message TicketMonitoringRequest {
+  int64 performanceId = 1;
+}
+
+message TicketMonitoringResponse {
+  int64  remainingTicketCount = 1;
+}
+
 service Ticketing {
   rpc Ticketing(TicketingRequest) returns (TicketingResponse);
+  rpc TicketMonitoring(TicketMonitoringRequest) returns (stream TicketMonitoringResponse);
 }
