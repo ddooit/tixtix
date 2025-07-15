@@ -15,12 +15,21 @@ public class ServerCallerFactory {
             .usePlaintext()
             .build();
 
+    private static final ManagedChannel ALARM_CHANNEL = ManagedChannelBuilder
+            .forAddress("localhost", 50053)
+            .usePlaintext()
+            .build();
+
     public static TicketClientCaller ticketClientCaller() {
         return new TicketClientCaller(TICKET_CHANNEL);
     }
 
     public static PaymentClientCaller paymentClientCaller() {
         return new PaymentClientCaller(PAYMENT_CHANNEL);
+    }
+
+    public static AlarmClientCaller alarmClientCaller() {
+        return new AlarmClientCaller(ALARM_CHANNEL);
     }
 
 }

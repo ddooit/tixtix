@@ -9,11 +9,11 @@ public class PaymentGrpcServer {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        final var ticketServer = ServerBuilder.forPort(PAYMENT_SERVER_PORT)
+        final var paymentServer = ServerBuilder.forPort(PAYMENT_SERVER_PORT)
                 .addService(new PaymentGrpcService())
                 .build();
 
-        ticketServer.start();
-        ticketServer.awaitTermination();
+        paymentServer.start();
+        paymentServer.awaitTermination();
     }
 }

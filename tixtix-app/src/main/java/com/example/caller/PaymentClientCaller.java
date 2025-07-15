@@ -1,6 +1,5 @@
 package com.example.caller;
 
-import com.example.dto.PaymentRequest;
 import com.example.payment.Empty;
 import com.example.payment.PaymentReadyRequest;
 import com.example.payment.PaymentServiceGrpc;
@@ -19,12 +18,10 @@ public class PaymentClientCaller {
         this.futureStub = PaymentServiceGrpc.newFutureStub(channel);
     }
 
-    public ListenableFuture<Empty> callPaymentGetReady(final PaymentRequest request) {
+    public ListenableFuture<Empty> callPaymentGetReady(final PaymentReadyRequest request) {
         logger.info("<<< PAYMENT CLIENT >>> get ready : {}", request);
         
-        return futureStub.getReady(PaymentReadyRequest.newBuilder()
-                .setMemberId(request.memberId())
-                .setPrice(request.price()).build());
+        return futureStub.getReady(request);
     }
 
 }

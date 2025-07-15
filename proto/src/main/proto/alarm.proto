@@ -1,0 +1,20 @@
+syntax = "proto3";
+import "payment.proto";
+
+option java_multiple_files = true;
+option java_package = "com.example.alarm";
+option java_outer_classname = "AlarmProto";
+
+message SendAlarmRequest{
+  int64 memberId = 1;
+  AlarmType alarmType = 2;
+}
+
+enum AlarmType{
+  TICKETING = 0;
+  PAYMENT = 1;
+}
+
+service AlarmService {
+  rpc sendAlarm(SendAlarmRequest) returns (Empty);
+}

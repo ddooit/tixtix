@@ -3,3 +3,4 @@ rootProject.name = 'tixtix'
 //include('ticket-kot', 'tixtix-app-kot', 'proto')
 include('ticket', 'tixtix-app', 'proto')
 include 'payment'
+include 'alarm'
