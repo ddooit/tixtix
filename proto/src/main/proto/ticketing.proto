@@ -31,7 +31,17 @@ message TicketMonitoringResponse {
   int64  remainingTicketCount = 1;
 }
 
+message BulkTicketingRequest {
+  int64 ticketId = 1;
+}
+
+message BulkTicketingResponse {
+  int32 ticketCount = 1;
+  int64 totalPrice = 2;
+}
+
 service Ticketing {
   rpc Ticketing(TicketingRequest) returns (TicketingResponse);
   rpc TicketMonitoring(TicketMonitoringRequest) returns (stream TicketMonitoringResponse);
+  rpc BulkTicketing(stream BulkTicketingRequest) returns (BulkTicketingResponse);
 }

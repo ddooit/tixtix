@@ -2,6 +2,8 @@ package com.example;
 
 import com.example.alarm.AlarmType;
 import com.example.alarm.SendAlarmRequest;
+import com.example.dto.BulkTicketingRequest;
+import com.example.dto.BulkTicketingResponse;
 import com.example.dto.TicketingRequest;
 import com.example.dto.TicketingResponse;
 import com.example.payment.Empty;
@@ -94,7 +96,7 @@ class TixTixService {
         }, callbackExecutor);
     }
 
-    public List<Long> monitoring(final long performanceId){
+    public List<Long> monitoring(final long performanceId) {
         final var result = new ArrayList<Long>();
 
         ticketClientCaller()
@@ -107,6 +109,14 @@ class TixTixService {
                 });
 
         return result;
+    }
+
+    public BulkTicketingResponse bulkTicketing(final List<BulkTicketingRequest> ticketingRequests) {
+        final var requests = ticketingRequests.stream()
+                .map(BulkTicketingRequest::toGrpcRequest).toList();
+
+        return BulkTicketingResponse.fromGrpcResponse(ticketClientCaller()
+                .callBulkTicketingRequest(requests));
     }
 
 }

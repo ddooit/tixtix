@@ -13,6 +13,7 @@ public class TicketGrpcServer {
         final var ticketServer = ServerBuilder.forPort(TICKET_SERVER_PORT)
                 .addService(new TicketGrpcService())
                 .addService(new TicketMonitoringGrpcService())
+                .addService(new BulkTicketGrpcService())
                 .build();
 
         ticketServer.start();

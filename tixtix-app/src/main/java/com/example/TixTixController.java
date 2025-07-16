@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.dto.BulkTicketingRequest;
+import com.example.dto.BulkTicketingResponse;
 import com.example.dto.TicketingRequest;
 import com.example.dto.TicketingResponse;
 import org.springframework.web.bind.annotation.*;
@@ -29,5 +31,9 @@ class TixTixController {
         return service.monitoring(performanceId);
     }
 
+    @PostMapping("/bulk-ticketing")
+    BulkTicketingResponse bulkTicketing(@RequestBody final List<BulkTicketingRequest> requests) {
+        return service.bulkTicketing(requests);
+    }
 
 }
