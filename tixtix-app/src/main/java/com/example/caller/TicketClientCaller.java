@@ -88,4 +88,41 @@ public class TicketClientCaller {
 
     }
 
+
+    public void callSoldOutTicketing(final List<SoldOutTicketingRequest> soldOutTicketingRequests) {
+        logger.info("<<< TICKET CLIENT >>> sold out ticketing request : {}", soldOutTicketingRequests);
+
+        final var responseStreamObserver = new StreamObserver<SoldOutTicketingResponse>() {
+            int count = 0;
+
+            @Override
+            public void onNext(final SoldOutTicketingResponse value) {
+                logger.info("<<< TICKET CLIENT >>> sold out [{}] : {}", count++, value);
+            }
+
+            @Override
+            public void onError(final Throwable t) {
+                logger.info("<<< TICKET CLIENT >>> sold out ticketing ERROR : {}", t.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                logger.info("<<< TICKET CLIENT >>> sold out ticketing Completed");
+            }
+        };
+
+        final var requestStreamObserver = asyncStub.soldOutTicketing(responseStreamObserver);
+
+
+        soldOutTicketingRequests.forEach(
+                soldOutTicketingRequest -> {
+                    logger.info("<<< TICKET CLIENT >>> Sending Ticketing request: {}", soldOutTicketingRequest);
+
+                    requestStreamObserver.onNext(soldOutTicketingRequest);
+                });
+
+        requestStreamObserver.onCompleted();
+
+    }
+
 }

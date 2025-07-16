@@ -40,8 +40,17 @@ message BulkTicketingResponse {
   int64 totalPrice = 2;
 }
 
+message SoldOutTicketingRequest {
+  int64 ticketId = 1;
+}
+
+message SoldOutTicketingResponse {
+  string message = 1;
+}
+
 service Ticketing {
   rpc Ticketing(TicketingRequest) returns (TicketingResponse);
   rpc TicketMonitoring(TicketMonitoringRequest) returns (stream TicketMonitoringResponse);
   rpc BulkTicketing(stream BulkTicketingRequest) returns (BulkTicketingResponse);
+  rpc SoldOutTicketing(stream SoldOutTicketingRequest) returns (stream SoldOutTicketingResponse);
 }

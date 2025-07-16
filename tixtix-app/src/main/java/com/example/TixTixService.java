@@ -8,6 +8,7 @@ import com.example.dto.TicketingRequest;
 import com.example.dto.TicketingResponse;
 import com.example.payment.Empty;
 import com.example.payment.PaymentReadyRequest;
+import com.example.dto.SoldOutTicketingRequest;
 import com.example.ticket.TicketingStatus;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
@@ -119,4 +120,12 @@ class TixTixService {
                 .callBulkTicketingRequest(requests));
     }
 
+    public void soldOutTicketing(final List<SoldOutTicketingRequest> soldOutTicketingRequests) {
+        final var requests = soldOutTicketingRequests.stream()
+                .map(SoldOutTicketingRequest::toGrpcRequest)
+                .toList();
+
+        ticketClientCaller()
+                .callSoldOutTicketing(requests);
+    }
 }

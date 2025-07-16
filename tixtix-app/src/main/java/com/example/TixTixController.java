@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.dto.BulkTicketingRequest;
-import com.example.dto.BulkTicketingResponse;
-import com.example.dto.TicketingRequest;
-import com.example.dto.TicketingResponse;
+import com.example.dto.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +31,11 @@ class TixTixController {
     @PostMapping("/bulk-ticketing")
     BulkTicketingResponse bulkTicketing(@RequestBody final List<BulkTicketingRequest> requests) {
         return service.bulkTicketing(requests);
+    }
+
+    @PostMapping("/sold-out-ticketing")
+    void soldOutTicketing(@RequestBody final List<SoldOutTicketingRequest> requests) {
+        service.soldOutTicketing(requests);
     }
 
 }

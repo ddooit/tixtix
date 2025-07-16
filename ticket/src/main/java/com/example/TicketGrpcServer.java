@@ -14,6 +14,7 @@ public class TicketGrpcServer {
                 .addService(new TicketGrpcService())
                 .addService(new TicketMonitoringGrpcService())
                 .addService(new BulkTicketGrpcService())
+                .addService(new SoldOutTicketGrpcService())
                 .build();
 
         ticketServer.start();
