@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.ticket.TicketingGrpc;
-import com.example.ticket.TicketingRequest;
-import com.example.ticket.TicketingResponse;
-import com.example.ticket.TicketingStatus;
+import com.example.ticket.*;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,4 +27,18 @@ public class TicketGrpcService extends TicketingGrpc.TicketingImplBase {
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void ticketMonitoring(TicketMonitoringRequest request, StreamObserver<TicketMonitoringResponse> responseObserver) {
+        TicketMonitoringGrpcService.ticketMonitoring(request, responseObserver);
+    }
+
+    @Override
+    public StreamObserver<BulkTicketingRequest> bulkTicketing(StreamObserver<BulkTicketingResponse> responseObserver) {
+        return BulkTicketGrpcService.bulkTicketing(responseObserver);
+    }
+
+    @Override
+    public StreamObserver<SoldOutTicketingRequest> soldOutTicketing(StreamObserver<SoldOutTicketingResponse> responseObserver) {
+        return SoldOutTicketGrpcService.soldOutTicketing(responseObserver);
+    }
 }

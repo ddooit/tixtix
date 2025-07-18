@@ -2,17 +2,15 @@ package com.example;
 
 import com.example.ticket.BulkTicketingRequest;
 import com.example.ticket.BulkTicketingResponse;
-import com.example.ticket.TicketingGrpc;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BulkTicketGrpcService extends TicketingGrpc.TicketingImplBase {
+public class BulkTicketGrpcService {
 
     private static final Logger logger = LoggerFactory.getLogger(BulkTicketGrpcService.class);
 
-    @Override
-    public StreamObserver<BulkTicketingRequest> bulkTicketing(final StreamObserver<BulkTicketingResponse> responseObserver) {
+    public static StreamObserver<BulkTicketingRequest> bulkTicketing(final StreamObserver<BulkTicketingResponse> responseObserver) {
 
         return new StreamObserver<>() {
             int totalCount = 0;

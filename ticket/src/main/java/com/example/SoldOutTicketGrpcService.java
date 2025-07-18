@@ -2,21 +2,19 @@ package com.example;
 
 import com.example.ticket.SoldOutTicketingRequest;
 import com.example.ticket.SoldOutTicketingResponse;
-import com.example.ticket.TicketingGrpc;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class SoldOutTicketGrpcService extends TicketingGrpc.TicketingImplBase {
+public class SoldOutTicketGrpcService {
 
     private final static Logger logger = LoggerFactory.getLogger(SoldOutTicketGrpcService.class);
 
     private final static List<String> userList = List.of("user1", "user2", "user3", "user4", "user5");
 
-    @Override
-    public StreamObserver<SoldOutTicketingRequest> soldOutTicketing(final StreamObserver<SoldOutTicketingResponse> responseObserver) {
+    public static StreamObserver<SoldOutTicketingRequest> soldOutTicketing(final StreamObserver<SoldOutTicketingResponse> responseObserver) {
 
         return new StreamObserver<>() {
 
